@@ -3,7 +3,37 @@ apply plugin: 'groovy'
 
 sourceCompatibility = 1.7
 
+
 repositories {
     mavenLocal()
     mavenCentral()
+}
+
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/groovy'
+        }
+    }
+    test {
+        groovy {
+            srcDir 'test/groovy'
+        }
+    }
+}
+
+
+test {
+    testLogging {
+        events 'started', 'passed', 'failed', 'skipped'
+        exceptionFormat = 'full'
+    }
+    include "**/ex${project.getProperty('num')}/*"
+}
+
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.4'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
